@@ -1,0 +1,1 @@
+This folder contains generic scripts, and should be included whether your game is 2D or 3D.  It should be included alongside the 2D or 3D folder, depending on the style of your game.
