@@ -4,7 +4,7 @@
 /// This is an example controller for using the CharacterTopDowner
 /// </summary>
 [RequireComponent(typeof(CharacterTopDowner))]
-public class PlayerController : MonoBehaviour
+public class PlayerTopDownController : MonoBehaviour
 {
     private CharacterTopDowner characterMoverTopDown;
 
