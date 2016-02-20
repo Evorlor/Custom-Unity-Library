@@ -32,7 +32,7 @@ public class Conversation : MonoBehaviour
     public delegate bool CanCyclePhraseDelegate();
     public CanCyclePhraseDelegate CanCyclePhraseMethod;
 
-    private Vector3 DEFAULT_OFFSET_BY_SCALE = new Vector3(0, 2, 0);
+    //private Vector3 DEFAULT_OFFSET_BY_SCALE = new Vector3(0, 2, 0);
     private Vector3 DEFAULT_SCALE = new Vector3(0.001f, 0.001f, 0.001f);
     private const string DEFAULT_FONT = "Arial.ttf";
     private const int DEFAULT_FONT_SIZE = 300;
