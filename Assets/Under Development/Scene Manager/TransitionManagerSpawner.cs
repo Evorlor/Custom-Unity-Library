@@ -3,7 +3,7 @@
 /// <summary>
 /// Used to predetermine spawn points for TemporarySceneManager
 /// </summary>
-public class ScenesManagerSpawner : MonoBehaviour
+public class TransitionManagerSpawner : MonoBehaviour
 {
     [Tooltip("The list of Spawn Points in this Scene")]
     public SpawnPoint[] spawnPoints;

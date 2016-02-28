@@ -6,7 +6,7 @@ using System.Collections;
 /// Conversation which can be triggered to display Text on the screen
 /// </summary>
 [RequireComponent(typeof(Canvas))]
-public class Conversation : MonoBehaviour
+public class Popup : MonoBehaviour
 {
     [Tooltip("The phrases to be used in the conversation")]
     public string[] Phrases;

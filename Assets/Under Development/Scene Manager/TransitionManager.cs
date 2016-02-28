@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 /// <summary>
 /// This is used to load a scene for temporary use
 /// </summary>
-public class ScenesManager : ManagerBehaviour<ScenesManager>
+public class TransitionManager : ManagerBehaviour<TransitionManager>
 {
     public delegate void TemporarySceneLoaded(Scene temporaryScene);
     public event TemporarySceneLoaded TemporarySceneLoader;
@@ -227,7 +227,7 @@ public class ScenesManager : ManagerBehaviour<ScenesManager>
 
     private void MovePrespawnedGameObjects()
     {
-        var spawner = FindObjectOfType<ScenesManagerSpawner>();
+        var spawner = FindObjectOfType<TransitionManagerSpawner>();
         if (spawner)
         {
             foreach (var spawnPoint in spawner.spawnPoints)
