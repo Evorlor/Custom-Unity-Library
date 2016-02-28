@@ -230,21 +230,21 @@ public class TransitionManager : ManagerBehaviour<TransitionManager>
         var spawner = FindObjectOfType<TransitionManagerSpawner>();
         if (spawner)
         {
-            foreach (var spawnPoint in spawner.spawnPoints)
+            foreach (var spawnPoint in spawner.GetSpawnPoints())
             {
-                var spawnedGameObject = GameObject.Find(spawnPoint.spawnName);
+                var spawnedGameObject = GameObject.Find(spawnPoint.GetSpawnName());
                 if (!spawnedGameObject)
                 {
-                    if (spawnPoint.spawnName == string.Empty)
+                    if (spawnPoint.GetSpawnName() == string.Empty)
                     {
-                        Debug.LogWarning("No name for the GameObject expected at the spawn point located at " + spawnPoint.spawnPosition + " was specified, and that spawn point will have no effect.");
+                        Debug.LogWarning("No name for the GameObject expected at the spawn point located at " + spawnPoint.GetSpawnPosition() + " was specified, and that spawn point will have no effect.");
                     }
                     else {
-                        Debug.LogWarning(spawnPoint.spawnName + " was not sent to " + temporaryActiveScene.name + " from " + permanentActiveScene.name + ", and its spawn position will not be updated.", spawner.gameObject);
+                        Debug.LogWarning(spawnPoint.GetSpawnName() + " was not sent to " + temporaryActiveScene.name + " from " + permanentActiveScene.name + ", and its spawn position will not be updated.", spawner.gameObject);
                     }
                     continue;
                 }
-                spawnedGameObject.transform.position = spawnPoint.spawnPosition;
+                spawnedGameObject.transform.position = spawnPoint.GetSpawnPosition();
             }
         }
     }

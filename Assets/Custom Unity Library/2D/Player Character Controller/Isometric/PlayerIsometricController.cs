@@ -7,8 +7,9 @@
 public class PlayerIsometricController : MonoBehaviour
 {
     [Tooltip("Speed at which the player moves vertically relative to the horizontal speed.")]
+    [SerializeField]
     [Range(0, 2)]
-    public float verticalSpeedMultiplier = 0.5f;
+    private float verticalSpeedMultiplier = 0.5f;
 
     private CharacterIsometric characterIsometric;
 

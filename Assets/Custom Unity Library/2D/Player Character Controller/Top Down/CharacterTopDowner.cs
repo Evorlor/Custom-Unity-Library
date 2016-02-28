@@ -9,12 +9,14 @@ using System;
 public class CharacterTopDowner : MonoBehaviour
 {
     [Tooltip("Speed at which the character can move")]
+    [SerializeField]
     [Range(0, 25)]
-    public float moveSpeed = 8.0f;
+    private float moveSpeed = 8.0f;
 
     [Tooltip("How fast the character can change directions")]
+    [SerializeField]
     [Range(0, 100)]
-    public float damping = 20.0f;
+    private float damping = 20.0f;
 
     public event Action<RaycastHit2D> onControllerCollidedEvent;
     public event Action<Collider2D> onTriggerEnterEvent;

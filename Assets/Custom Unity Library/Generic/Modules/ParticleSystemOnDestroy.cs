@@ -7,7 +7,8 @@
 public class ParticleSystemOnDestroy : MonoBehaviour
 {
     [Tooltip("The particle system which will be trigged when game object is destroyed")]
-    public ParticleSystem ParticleSystem;
+    [SerializeField]
+    private ParticleSystem ParticleSystem;
 
     private bool applicationClosing;
 

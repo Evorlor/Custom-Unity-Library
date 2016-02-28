@@ -8,36 +8,42 @@ using System;
 [RequireComponent(typeof(CharacterController2D))]
 public class CharacterPlatformer : MonoBehaviour
 {
+    private const float DropDownRate = 3.0f;
+
     [Tooltip("Speed at which the character can run left and right")]
+    [SerializeField]
     [Range(0, 25)]
-    public float runSpeed = 8.0f;
+    private float runSpeed = 8.0f;
 
     [Tooltip("How fast the character can change directions")]
+    [SerializeField]
     [Range(0, 100)]
-    public float groundDamping = 20.0f;
+    private float groundDamping = 20.0f;
 
     [Tooltip("How fast the character can change direction while in the air")]
+    [SerializeField]
     [Range(0, 100)]
-    public float inAirDamping = 5.0f;
+    private float inAirDamping = 5.0f;
 
     [Tooltip("Percentage of Max Jump Height that is the base jump")]
+    [SerializeField]
     [Range(0, 1)]
-    public float startingJumpHeight = 0.5f;
+    private float startingJumpHeight = 0.5f;
 
     [Tooltip("How high the character can jump")]
+    [SerializeField]
     [Range(0, 25)]
-    public float maxJumpHeight = 5.0f;
+    private float maxJumpHeight = 5.0f;
 
     [Tooltip("How fast the jump force increases")]
+    [SerializeField]
     [Range(0, 1)]
-    public float jumpIncreaseRate = 0.5f;
+    private float jumpIncreaseRate = 0.5f;
 
     public event Action<RaycastHit2D> onControllerCollidedEvent;
     public event Action<Collider2D> onTriggerEnterEvent;
     public event Action<Collider2D> onTriggerStayEvent;
     public event Action<Collider2D> onTriggerExitEvent;
-
-    private const float DropDownRate = 3.0f;
 
     private float oldAppliedJumpPower;
     private float appliedJumpPower;
