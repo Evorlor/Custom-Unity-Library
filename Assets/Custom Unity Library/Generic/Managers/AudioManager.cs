@@ -6,6 +6,22 @@ using UnityEngine;
 /// </summary>
 public class AudioManager : ManagerBehaviour<AudioManager>
 {
+    void Reset()
+    {
+        foreach (var audioSource in gameObject.GetComponents<AudioSource>())
+        {
+            DestroyImmediate(audioSource);
+        }
+    }
+
+    void OnLevelWasLoaded()
+    {
+        foreach (var audioSource in gameObject.GetComponents<AudioSource>())
+        {
+            Destroy(audioSource);
+        }
+    }
+
     /// <summary>
     /// Plays the specified audio, and loops it if specified.
     /// If no Game Object is provided, it will play at the position of the AudioManager.
@@ -16,18 +32,20 @@ public class AudioManager : ManagerBehaviour<AudioManager>
         {
             sourceGameObject = gameObject;
         }
+        AudioSource newAudioSource = null;
         foreach (var audioSource in sourceGameObject.GetComponents<AudioSource>())
         {
-            if (audioSource.isPlaying)
+            if (!audioSource.isPlaying)
             {
-                continue;
+                newAudioSource = audioSource;
+                break;
             }
-            audioSource.clip = clip;
-            audioSource.loop = loop;
-            audioSource.Play();
-            return;
         }
-        var newAudioSource = sourceGameObject.AddComponent<AudioSource>();
+        if (!newAudioSource)
+        {
+            newAudioSource = sourceGameObject.AddComponent<AudioSource>();
+            newAudioSource.spatialize = sourceGameObject != gameObject;
+        }
         newAudioSource.clip = clip;
         newAudioSource.loop = loop;
         newAudioSource.Play();
@@ -58,7 +76,7 @@ public class AudioManager : ManagerBehaviour<AudioManager>
     /// Stops all AudioClips which are currently being played.
     /// If no Game Object is provided, it will stop all clips playing on the AudioManager
     /// </summary>
-    public void StopAllAudio(GameObject sourceGameObject = null)
+    public void StopAudio(GameObject sourceGameObject = null)
     {
         if (!sourceGameObject)
         {
@@ -74,7 +92,7 @@ public class AudioManager : ManagerBehaviour<AudioManager>
     /// Stops all instances of a specific AudioClip which are being played.
     /// If no Game Object is provided, it will stop all clips of that type on the AudioManager
     /// </summary>
-    public void StopAllAudio(AudioClip clip, GameObject sourceGameObject = null)
+    public void StopAudio(AudioClip clip, GameObject sourceGameObject = null)
     {
         if (!sourceGameObject)
         {
