@@ -17,4 +17,28 @@ public static class GameObjectExtensions
         }
         return component;
     }
+
+    /// <summary>
+    /// Finds the nearest component of the specified type, or null if there is none.
+    /// This is an expensive operation, and it should not be performed every frame.
+    /// </summary>
+    public static ComponentType FindNearest<ComponentType>(this GameObject gameObject) where ComponentType : Component
+    {
+        ComponentType nearestComponent = null;
+        float nearestDistance = Mathf.Infinity;
+        foreach (var component in Object.FindObjectsOfType<ComponentType>())
+        {
+            if (component.gameObject == gameObject)
+            {
+                continue;
+            }
+            float currentDistance = Vector3.Distance(gameObject.transform.position, component.transform.position);
+            if (currentDistance < nearestDistance)
+            {
+                nearestDistance = currentDistance;
+                nearestComponent = component;
+            }
+        }
+        return nearestComponent;
+    }
 }
