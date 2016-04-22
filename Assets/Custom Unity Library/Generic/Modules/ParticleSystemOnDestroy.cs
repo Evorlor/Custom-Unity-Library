@@ -22,7 +22,7 @@ public class ParticleSystemOnDestroy : MonoBehaviour
         if (GetComponent<Renderer>().isVisible)
         {
             var particleSystem = Instantiate(ParticleSystem, transform.position, Quaternion.identity) as ParticleSystem;
-            GameObjectFactory.ChildCloneToContainer(particleSystem.gameObject);
+            GameObjectUtility.ChildCloneToContainer(particleSystem.gameObject);
             Destroy(particleSystem.gameObject, particleSystem.duration);
         }
     }

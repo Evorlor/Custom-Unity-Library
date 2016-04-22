@@ -21,7 +21,7 @@ public abstract class ManagerBehaviour<ManagerType> : MonoBehaviour where Manage
                 instance = FindObjectOfType<ManagerType>();
                 if (!instance)
                 {
-                    var instanceGameObject = GameObjectFactory.GetOrAddGameObject(ManagerName);
+                    var instanceGameObject = GameObjectUtility.GetOrAddGameObject(ManagerName);
                     instance = instanceGameObject.AddComponent<ManagerType>();
                 }
             }

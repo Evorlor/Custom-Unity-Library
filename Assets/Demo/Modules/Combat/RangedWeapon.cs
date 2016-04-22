@@ -91,7 +91,7 @@ public class RangedWeapon : MonoBehaviour
             return false;
         }
         var projectileInstance = Instantiate(projectile, transform.position + projectileSpawnOffset, Quaternion.identity) as Projectile;
-        GameObjectFactory.ChildCloneToContainer(projectileInstance.gameObject);
+        GameObjectUtility.ChildCloneToContainer(projectileInstance.gameObject);
         var projectileBody = projectileInstance.GetRigidBody2D();
         if (!unlimitedRange && !projectileBody.IsWithinRange(target.position, force, arch))
         {
@@ -115,7 +115,7 @@ public class RangedWeapon : MonoBehaviour
         }
         direction.Normalize();
         var projectileInstance = Instantiate(projectile, transform.position + projectileSpawnOffset, Quaternion.identity) as Projectile;
-        GameObjectFactory.ChildCloneToContainer(projectileInstance.gameObject);
+        GameObjectUtility.ChildCloneToContainer(projectileInstance.gameObject);
         var projectileBody = projectileInstance.GetRigidBody2D();
         if (ignoreGravity)
         {
