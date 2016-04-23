@@ -47,6 +47,7 @@ public class GameObjectUtility
         var container = GetOrAddGameObject(clone.name.TrimEnd(CloneSuffix));
         clone.transform.parent = container.transform;
         container.GetOrAddComponent<DestroyedWhenEmpty>();
+        container.hideFlags = HideFlags.HideInInspector;
     }
 
     /// <summary>

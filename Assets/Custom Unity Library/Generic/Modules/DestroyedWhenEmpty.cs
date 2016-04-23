@@ -3,11 +3,6 @@ using System.Collections;
 
 public class DestroyedWhenEmpty : MonoBehaviour
 {
-    void Awake()
-    {
-        hideFlags = HideFlags.HideInInspector;
-    }
-
     void Update()
     {
         bool hasExtraComponents = gameObject.GetComponents<MonoBehaviour>().Length > 1;
