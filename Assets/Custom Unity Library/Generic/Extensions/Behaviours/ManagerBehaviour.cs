@@ -21,8 +21,11 @@ public abstract class ManagerBehaviour<ManagerType> : MonoBehaviour where Manage
                 instance = FindObjectOfType<ManagerType>();
                 if (!instance)
                 {
-                    var instanceGameObject = GameObjectUtility.GetOrAddGameObject(ManagerName);
-                    instance = instanceGameObject.AddComponent<ManagerType>();
+                    var masterManager = GameObjectUtility.GetOrAddGameObject(ManagerName);
+                    DontDestroyOnLoad(masterManager);
+                    var manager = GameObjectUtility.GetOrAddGameObject(typeof(ManagerType).ToString());
+                    manager.transform.SetParent(masterManager.transform);
+                    instance = manager.AddComponent<ManagerType>();
                 }
             }
             return instance;
@@ -32,7 +35,6 @@ public abstract class ManagerBehaviour<ManagerType> : MonoBehaviour where Manage
     protected virtual void Awake()
     {
         DestroyDuplicateManagers();
-        DontDestroyOnLoad(gameObject);
     }
 
     private void DestroyDuplicateManagers()
@@ -49,7 +51,7 @@ public abstract class ManagerBehaviour<ManagerType> : MonoBehaviour where Manage
                 bool sharesGameObjectWithManager = Instance.gameObject == manager.gameObject;
                 bool hasExtraComponents = manager.GetComponents<MonoBehaviour>().Length > 1;
                 bool hasChildren = transform.childCount > 0;
-                bool destroyGameObject = !(sharesGameObjectWithManager || hasExtraComponents || hasChildren);
+                bool destroyGameObject = !sharesGameObjectWithManager && !hasExtraComponents && !hasChildren;
                 if (destroyGameObject)
                 {
                     Destroy(manager.gameObject);

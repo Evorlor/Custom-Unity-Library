@@ -46,7 +46,7 @@ public class GameObjectUtility
     {
         var container = GetOrAddGameObject(clone.name.TrimEnd(CloneSuffix));
         clone.transform.parent = container.transform;
-        container.GetOrAddComponent<DestroyedWhenChildless>();
+        container.GetOrAddComponent<DestroyedWhenEmpty>();
     }
 
     /// <summary>
@@ -58,21 +58,5 @@ public class GameObjectUtility
         var gameObjectTypes = Object.FindObjectsOfType<GameObjectType>();
         gameObjectTypes = gameObjectTypes.OrderBy(o => Vector3.Distance(position, o.transform.position)).ToArray();
         return gameObjectTypes;
-    }
-}
-
-class DestroyedWhenChildless : MonoBehaviour
-{
-    void Awake()
-    {
-        hideFlags = HideFlags.HideInInspector;
-    }
-
-    void Update()
-    {
-        if (transform.childCount == 0)
-        {
-            Destroy(gameObject);
-        }
     }
 }
