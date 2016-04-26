@@ -22,11 +22,16 @@ public abstract class ManagerBehaviour<ManagerType> : MonoBehaviour where Manage
                 if (!instance)
                 {
                     var masterManager = GameObjectUtility.GetOrAddGameObject(ManagerName);
-                    DontDestroyOnLoad(masterManager);
                     var manager = GameObjectUtility.GetOrAddGameObject(typeof(ManagerType).ToString());
                     manager.transform.SetParent(masterManager.transform);
                     instance = manager.AddComponent<ManagerType>();
                 }
+                var root = instance.transform;
+                while (root.parent)
+                {
+                    root = root.parent;
+                }
+                DontDestroyOnLoad(root.gameObject);
             }
             return instance;
         }
