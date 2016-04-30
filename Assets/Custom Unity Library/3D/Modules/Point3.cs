@@ -111,6 +111,23 @@ public struct Point3
     }
 
     /// <summary>
+    /// Allows for cast from Vector3 to Point3.
+    /// Truncates any decimals on the Vector3's components.
+    /// </summary>
+    public static explicit operator Point3(Vector3 vector3)
+    {
+        return new Point3((int)vector3.x, (int)vector3.y, (int)vector3.z);
+    }
+
+    /// <summary>
+    /// Allows for cast from Point3 to Vector3
+    /// </summary>
+    public static explicit operator Vector3(Point3 point3)
+    {
+        return new Vector3(point3.x, point3.y, point3.z);
+    }
+
+    /// <summary>
     /// Gets the Vector3 form of the point
     /// </summary>
     public Vector3 ToVector()
