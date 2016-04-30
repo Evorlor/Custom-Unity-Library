@@ -18,4 +18,12 @@ public static class Vector3Extensions
         float coneAngle = Mathf.Cos(Mathf.Deg2Rad * degreeOfAccuracy);
         return actualAngle >= coneAngle;
     }
+
+    /// <summary>
+    /// Returns the Point3 conversion of this Vector3
+    /// </summary>
+    public static Point3 ToPoint(this Vector3 vector3)
+    {
+        return new Point3((int)vector3.x, (int)vector3.y, (int)vector3.z);
+    }
 }

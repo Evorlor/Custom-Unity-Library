@@ -121,16 +121,25 @@ public struct Point2
     /// <summary>
     /// Allows for cast from Point2 to Vector2
     /// </summary>
-    public static explicit operator Vector2(Point2 point2)
+    public static implicit operator Vector2(Point2 point2)
     {
         return new Vector2(point2.x, point2.y);
     }
 
     /// <summary>
-    /// Gets the Vector2 form of the point
+    /// Allows for cast from Vector3 to Point2.
+    /// Truncates any decimals on the Vector3's components.
     /// </summary>
-    public Vector2 ToVector()
+    public static explicit operator Point2(Vector3 vector3)
     {
-        return new Vector3(x, y);
+        return new Point2((int)vector3.x, (int)vector3.y);
+    }
+
+    /// <summary>
+    /// Allows for cast from Point2 to Vector3
+    /// </summary>
+    public static implicit operator Vector3(Point2 point2)
+    {
+        return new Vector3(point2.x, point2.y);
     }
 }

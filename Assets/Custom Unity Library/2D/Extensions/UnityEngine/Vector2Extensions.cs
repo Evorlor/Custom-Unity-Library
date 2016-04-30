@@ -20,4 +20,12 @@ public static class Vector2Extensions
     {
         return vector2.ToRadians() * Mathf.Rad2Deg;
     }
+
+    /// <summary>
+    /// Returns the Point2 conversion of this Vector2
+    /// </summary>
+    public static Point2 ToPoint(this Vector2 vector2)
+    {
+        return new Point2((int)vector2.x, (int)vector2.y);
+    }
 }
