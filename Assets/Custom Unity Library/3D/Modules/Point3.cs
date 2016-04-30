@@ -109,4 +109,12 @@ public struct Point3
     {
         return "(" + x + "," + y + "," + z + ")";
     }
+
+    /// <summary>
+    /// Gets the Vector3 form of the point
+    /// </summary>
+    public Vector3 ToVector()
+    {
+        return new Vector3(x, y, z);
+    }
 }
