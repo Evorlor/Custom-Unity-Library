@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Text.RegularExpressions;
+using UnityEngine;
 
 /// <summary>
 /// Extending this class creates a MonoBehaviour which may only have on instance and will not be destroyed between scenes.  When extending, the type of the inheriting class must be passed.
@@ -22,7 +23,8 @@ public abstract class ManagerBehaviour<ManagerType> : MonoBehaviour where Manage
                 if (!instance)
                 {
                     var masterManager = GameObjectUtility.GetOrAddGameObject(ManagerName);
-                    var manager = GameObjectUtility.GetOrAddGameObject(typeof(ManagerType).ToString());
+                    var managerName = Regex.Replace(typeof(ManagerType).ToString(), @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
+                    var manager = GameObjectUtility.GetOrAddGameObject(managerName);
                     manager.transform.SetParent(masterManager.transform);
                     instance = manager.AddComponent<ManagerType>();
                 }
