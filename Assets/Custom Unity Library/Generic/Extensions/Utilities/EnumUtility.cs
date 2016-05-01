@@ -1,28 +1,31 @@
 ﻿using System;
 
-public class EnumUtility
+/// <summary>
+/// Utility methods for Enumerations
+/// </summary>
+public static class EnumUtility
 {
     /// <summary>
     /// Gets an array of all names in an enum
     /// </summary>
-    public static string[] GetNames<EnumerationType>()
+    public static string[] GetNames<TEnumeration>()
     {
-        return Enum.GetNames(typeof(EnumerationType));
+        return Enum.GetNames(typeof(TEnumeration));
     }
 
     /// <summary>
     /// Gets an array of all values in an enum
     /// </summary>
-    public static EnumerationType[] GetValues<EnumerationType>()
+    public static TEnumeration[] GetValues<TEnumeration>()
     {
-        return (EnumerationType[])Enum.GetValues(typeof(EnumerationType));
+        return (TEnumeration[])Enum.GetValues(typeof(TEnumeration));
     }
 
     /// <summary>
     /// Gets the length of the enum
     /// </summary>
-    public static int Count<EnumerationType>()
+    public static int Count<TEnumeration>()
     {
-        return GetNames<EnumerationType>().Length;
+        return GetNames<TEnumeration>().Length;
     }
 }

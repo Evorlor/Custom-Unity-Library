@@ -4,29 +4,29 @@ using UnityEngine;
 /// <summary>
 /// Extending this class creates a MonoBehaviour which may only have on instance and will not be destroyed between scenes.  When extending, the type of the inheriting class must be passed.
 /// </summary>
-public abstract class ManagerBehaviour<ManagerType> : MonoBehaviour where ManagerType : ManagerBehaviour<ManagerType>
+public abstract class ManagerBehaviour<TManager> : MonoBehaviour where TManager : ManagerBehaviour<TManager>
 {
     private const string ManagerName = "Manager";
 
-    private static ManagerType instance;
+    private static TManager instance;
 
     /// <summary>
     /// Gets the singleton instance of the Manager
     /// </summary>
-    public static ManagerType Instance
+    public static TManager Instance
     {
         get
         {
             if (!instance)
             {
-                instance = FindObjectOfType<ManagerType>();
+                instance = FindObjectOfType<TManager>();
                 if (!instance)
                 {
                     var masterManager = GameObjectUtility.GetOrAddGameObject(ManagerName);
-                    var managerName = Regex.Replace(typeof(ManagerType).ToString(), @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
+                    var managerName = Regex.Replace(typeof(TManager).ToString(), @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))", " $0");
                     var manager = GameObjectUtility.GetOrAddGameObject(managerName);
                     manager.transform.SetParent(masterManager.transform);
-                    instance = manager.AddComponent<ManagerType>();
+                    instance = manager.AddComponent<TManager>();
                 }
                 var root = instance.transform;
                 while (root.parent)
@@ -46,7 +46,7 @@ public abstract class ManagerBehaviour<ManagerType> : MonoBehaviour where Manage
 
     private void DestroyDuplicateManagers()
     {
-        var managers = FindObjectsOfType<ManagerType>();
+        var managers = FindObjectsOfType<TManager>();
         foreach (var manager in managers)
         {
             if (!manager)

@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// This is the factory for Game Objects
 /// </summary>
-public class GameObjectUtility
+public static class GameObjectUtility
 {
     private const string CloneSuffix = "(Clone)";
 
@@ -54,9 +54,9 @@ public class GameObjectUtility
     /// Finds all GameObjects of the specified type, and returns them in order of ascending distance from the Vector3.
     /// This is an expensive operation, and should not be performed every frame.
     /// </summary>
-    public static GameObjectType[] FindObjectsOfTypeByDistance<GameObjectType>(Vector3 position) where GameObjectType : MonoBehaviour
+    public static TGameObject[] FindObjectsOfTypeByDistance<TGameObject>(Vector3 position) where TGameObject : MonoBehaviour
     {
-        var gameObjectTypes = Object.FindObjectsOfType<GameObjectType>();
+        var gameObjectTypes = Object.FindObjectsOfType<TGameObject>();
         gameObjectTypes = gameObjectTypes.OrderBy(o => Vector3.Distance(position, o.transform.position)).ToArray();
         return gameObjectTypes;
     }

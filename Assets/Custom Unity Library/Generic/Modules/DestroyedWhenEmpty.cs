@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/// <summary>
+/// Destroys a gameobject when it has no children nor components
+/// </summary>
 public class DestroyedWhenEmpty : MonoBehaviour
 {
     void Update()

@@ -2,6 +2,9 @@
 using UnityEditor;
 using System.IO;
 
+/// <summary>
+/// Utility methods for Scriptable Objects
+/// </summary>
 public static class ScriptableObjectUtility
 {
     private const string AssetsFolderName = "Assets";
@@ -10,9 +13,9 @@ public static class ScriptableObjectUtility
     /// <summary>
     //	Create, name, and place unique new ScriptableObject asset files, optionally passing in the path where the Scriptable Object is to be created.
     /// </summary>
-    public static AssetType CreateAsset<AssetType>(string path = null) where AssetType : ScriptableObject
+    public static TAsset CreateAsset<TAsset>(string path = null) where TAsset : ScriptableObject
     {
-        AssetType asset = ScriptableObject.CreateInstance<AssetType>();
+        TAsset asset = ScriptableObject.CreateInstance<TAsset>();
         string assetPath = AssetDatabase.GetAssetPath(Selection.activeObject);
         if (assetPath == "")
         {
@@ -24,7 +27,7 @@ public static class ScriptableObjectUtility
         }
         if (path == null || path == "")
         {
-            path = assetPath + "/" + typeof(AssetType).ToString() + AssetSuffix;
+            path = assetPath + "/" + typeof(TAsset).ToString() + AssetSuffix;
         }
         string assetPathAndName = AssetDatabase.GenerateUniqueAssetPath(path);
         AssetDatabase.CreateAsset(asset, assetPathAndName);

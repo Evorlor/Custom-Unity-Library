@@ -8,12 +8,12 @@ public static class GameObjectExtensions
     /// <summary>
     /// If GameObject has specified Component, it returns it.  If GameObject does not have specified Component, it adds it and then returns it.
     /// </summary>
-    public static ComponentType GetOrAddComponent<ComponentType>(this GameObject gameObject) where ComponentType : Component
+    public static TComponent GetOrAddComponent<TComponent>(this GameObject gameObject) where TComponent : Component
     {
-        ComponentType component = gameObject.GetComponent<ComponentType>();
+        TComponent component = gameObject.GetComponent<TComponent>();
         if (component == null)
         {
-            component = gameObject.AddComponent(typeof(ComponentType)) as ComponentType;
+            component = gameObject.AddComponent(typeof(TComponent)) as TComponent;
         }
         return component;
     }
@@ -22,11 +22,11 @@ public static class GameObjectExtensions
     /// Finds the nearest component of the specified type, or null if there is none.
     /// This is an expensive operation, and it should not be performed every frame.
     /// </summary>
-    public static ComponentType FindNearest<ComponentType>(this GameObject gameObject) where ComponentType : Component
+    public static TComponent FindNearest<TComponent>(this GameObject gameObject) where TComponent : Component
     {
-        ComponentType nearestComponent = null;
+        TComponent nearestComponent = null;
         float nearestDistance = Mathf.Infinity;
-        foreach (var component in Object.FindObjectsOfType<ComponentType>())
+        foreach (var component in Object.FindObjectsOfType<TComponent>())
         {
             if (component.gameObject == gameObject)
             {
