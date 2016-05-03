@@ -158,7 +158,7 @@ public class TransitionManager : ManagerBehaviour<TransitionManager>
         yield return new WaitUntil(() => temporaryActiveScene.isLoaded);
         foreach (var temporaryGameObject in temporaryGameObjects)
         {
-            temporaryGameObject.Key.transform.parent = null;
+            temporaryGameObject.Key.transform.SetParent(null);
             SceneManager.MoveGameObjectToScene(temporaryGameObject.Key, temporaryActiveScene);
             temporaryGameObject.Key.SetActive(temporaryGameObject.Value.Active);
         }
@@ -212,7 +212,7 @@ public class TransitionManager : ManagerBehaviour<TransitionManager>
                 temporaryGameObject.Key.transform.rotation = temporaryGameObject.Value.Rotation;
                 temporaryGameObject.Key.transform.localScale = temporaryGameObject.Value.Scale;
                 SceneManager.MoveGameObjectToScene(temporaryGameObject.Key, permanentActiveScene);
-                temporaryGameObject.Key.transform.parent = temporaryGameObject.Value.Parent;
+                temporaryGameObject.Key.transform.SetParent(temporaryGameObject.Value.Parent);
             }
         }
         SceneManager.SetActiveScene(permanentActiveScene);

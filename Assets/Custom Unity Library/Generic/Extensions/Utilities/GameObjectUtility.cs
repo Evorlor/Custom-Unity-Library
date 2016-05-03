@@ -31,7 +31,7 @@ public static class GameObjectUtility
                 else
                 {
                     child = new GameObject(gameObjectNames[i]);
-                    child.transform.parent = parent.transform;
+                    child.transform.SetParent(parent.transform);
                 }
                 parent = child;
             }
@@ -45,7 +45,7 @@ public static class GameObjectUtility
     public static void ChildCloneToContainer(GameObject clone)
     {
         var container = GetOrAddGameObject(clone.name.TrimEnd(CloneSuffix));
-        clone.transform.parent = container.transform;
+        clone.transform.SetParent(container.transform);
         container.GetOrAddComponent<DestroyedWhenEmpty>();
         container.hideFlags = HideFlags.HideInInspector;
     }

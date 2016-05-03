@@ -69,7 +69,7 @@ public class Popup : MonoBehaviour
     //    if (!text)
     //    {
     //        GameObject textGameObject = new GameObject("Text");
-    //        textGameObject.transform.parent = transform;
+    //        textGameObject.transform.SetParent(transform);
     //        text = textGameObject.AddComponent<Text>();
     //        text.transform.position = Offset;
     //        text.transform.localScale = DefaultScale;
