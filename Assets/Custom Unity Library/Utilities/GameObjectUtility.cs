@@ -42,11 +42,12 @@ public static class GameObjectUtility
     /// <summary>
     /// Creates a GameObject by the same name of the clone and sets the clone as a child to that GameObject.  The container GameObject will automatically be destroyed once it has no remaining clones.
     /// </summary>
-    public static void ChildCloneToContainer(GameObject clone)
+    public static void ChildCloneToContainer(GameObject clone, Transform parent = null)
     {
         var container = GetOrAddGameObject(clone.name.TrimEnd(CloneSuffix));
         clone.transform.SetParent(container.transform);
         container.GetOrAddComponent<DestroyedWhenEmpty>();
+        container.transform.SetParent(parent);
         container.hideFlags = HideFlags.HideInInspector;
     }
 

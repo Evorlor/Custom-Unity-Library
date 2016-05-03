@@ -1,7 +1,8 @@
 ﻿/// <summary>
 /// These are the names for the input via the Unity InputManager
 /// </summary>
-public static class InputNames {
+public static class InputNames
+{
     /// <summary>
     /// Input name for horizontal input
     /// </summary>

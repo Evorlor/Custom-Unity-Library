@@ -1,1 +1,0 @@
-This folder contains scripts for 3D games.  It should be included along with the Generic folder if you are developing a 3D game.

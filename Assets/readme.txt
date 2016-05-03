@@ -1,6 +1,6 @@
 This Custom Unity Library contains generic extensions for the Unity 5 game engine.
 
-The Custom Unity Library folder is where the actual library is stored.  Copy this into your project to use it.  Either the 2D or 3D folder from within the Custom Unity Library may be deleted if it is not suitable towards your game.
+The Custom Unity Library folder is where the actual library is stored.  Copy this into your project to use it.
 
 The Demo folder has some non-generic code which uses the Custom Unity Library.  It can be used for reference or altered towards your needs.
 
