@@ -10,9 +10,19 @@ public static class GameObjectUtility
 
     /// <summary>
     /// Returns a newly created GameObject at the bottom of a tree, or returns it if it already exists.
+    /// Removes all null references and empty strings from the object names.
     /// </summary>
     public static GameObject GetOrAddGameObject(params string[] gameObjectNames)
     {
+        if (gameObjectNames == null)
+        {
+            Debug.LogError("The Game Object name(s) cannot be null when attempting to get or add a Game Object!");
+        }
+        gameObjectNames = gameObjectNames.Where(n => !string.IsNullOrEmpty(n)).ToArray();
+        if (gameObjectNames.Length == 0)
+        {
+            Debug.LogError("At least one valid Game Object name is required when attempting to get or add a Game Object!");
+        }
         var parent = GameObject.Find(gameObjectNames[0]);
         if (!parent)
         {
@@ -44,10 +54,10 @@ public static class GameObjectUtility
     /// </summary>
     public static void ChildCloneToContainer(GameObject clone, Transform parent = null)
     {
-        var container = GetOrAddGameObject(clone.name.TrimEnd(CloneSuffix));
+        var parentName = parent ? parent.name : null;
+        var container = GetOrAddGameObject(parent.name, clone.name.TrimEnd(CloneSuffix));
         clone.transform.SetParent(container.transform);
         container.GetOrAddComponent<DestroyedWhenEmpty>();
-        container.transform.SetParent(parent);
         container.hideFlags = HideFlags.HideInInspector;
     }
 
