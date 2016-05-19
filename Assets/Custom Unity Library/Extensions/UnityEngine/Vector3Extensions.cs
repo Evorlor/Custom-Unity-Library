@@ -1,29 +1,32 @@
-﻿using UnityEngine;
-
-/// <summary>
-/// These are extensions for Vector3s
-/// </summary>
-public static class Vector3Extensions
+﻿namespace CustomUnityLibrary
 {
-    /// <summary>
-    /// Casts a cone and checks if the target is within its volume. Parameters are the target position, the angle of the cone, the direction to cast the cone, and optionally, the range of the cone.
-    /// </summary>
-    public static bool ConeCast(this Vector3 vector3, Vector3 target, float degreeOfAccuracy, Vector3 direction, float range = Mathf.Infinity)
-    {
-        if (Vector3.Distance(vector3, target) > range)
-        {
-            return false;
-        }
-        float actualAngle = Vector3.Dot(direction, target - vector3);
-        float coneAngle = Mathf.Cos(Mathf.Deg2Rad * degreeOfAccuracy);
-        return actualAngle >= coneAngle;
-    }
+    using UnityEngine;
 
     /// <summary>
-    /// Returns the Point3 conversion of this Vector3
+    /// These are extensions for Vector3s
     /// </summary>
-    public static Point3 ToPoint(this Vector3 vector3)
+    public static class Vector3Extensions
     {
-        return new Point3((int)vector3.x, (int)vector3.y, (int)vector3.z);
+        /// <summary>
+        /// Casts a cone and checks if the target is within its volume. Parameters are the target position, the angle of the cone, the direction to cast the cone, and optionally, the range of the cone.
+        /// </summary>
+        public static bool ConeCast(this Vector3 vector3, Vector3 target, float degreeOfAccuracy, Vector3 direction, float range = Mathf.Infinity)
+        {
+            if (Vector3.Distance(vector3, target) > range)
+            {
+                return false;
+            }
+            float actualAngle = Vector3.Dot(direction, target - vector3);
+            float coneAngle = Mathf.Cos(Mathf.Deg2Rad * degreeOfAccuracy);
+            return actualAngle >= coneAngle;
+        }
+
+        /// <summary>
+        /// Returns the Point3 conversion of this Vector3
+        /// </summary>
+        public static Point3 ToPoint(this Vector3 vector3)
+        {
+            return new Point3((int)vector3.x, (int)vector3.y, (int)vector3.z);
+        }
     }
 }

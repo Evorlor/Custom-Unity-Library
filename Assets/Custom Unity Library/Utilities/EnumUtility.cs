@@ -1,31 +1,34 @@
-﻿using System;
-
-/// <summary>
-/// Utility methods for Enumerations
-/// </summary>
-public static class EnumUtility
+﻿namespace CustomUnityLibrary
 {
-    /// <summary>
-    /// Gets an array of all names in an enum
-    /// </summary>
-    public static string[] GetNames<TEnumeration>()
-    {
-        return Enum.GetNames(typeof(TEnumeration));
-    }
+    using System;
 
     /// <summary>
-    /// Gets an array of all values in an enum
+    /// Utility methods for Enumerations
     /// </summary>
-    public static TEnumeration[] GetValues<TEnumeration>()
+    public static class EnumUtility
     {
-        return (TEnumeration[])Enum.GetValues(typeof(TEnumeration));
-    }
+        /// <summary>
+        /// Gets an array of all names in an enum
+        /// </summary>
+        public static string[] GetNames<TEnumeration>()
+        {
+            return Enum.GetNames(typeof(TEnumeration));
+        }
 
-    /// <summary>
-    /// Gets the length of the enum
-    /// </summary>
-    public static int Count<TEnumeration>()
-    {
-        return GetNames<TEnumeration>().Length;
+        /// <summary>
+        /// Gets an array of all values in an enum
+        /// </summary>
+        public static TEnumeration[] GetValues<TEnumeration>()
+        {
+            return (TEnumeration[])Enum.GetValues(typeof(TEnumeration));
+        }
+
+        /// <summary>
+        /// Gets the length of the enum
+        /// </summary>
+        public static int Count<TEnumeration>()
+        {
+            return GetNames<TEnumeration>().Length;
+        }
     }
 }

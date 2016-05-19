@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using CustomUnityLibrary;
+using UnityEngine;
 
 /// <summary>
 /// This is an example controller for using the CharacterIsometric

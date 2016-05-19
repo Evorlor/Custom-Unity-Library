@@ -1,34 +1,37 @@
-﻿using UnityEngine;
-
-/// <summary>
-/// Plays the provided Particle System when the GameObject is destroyed
-/// </summary>
-[RequireComponent(typeof(Renderer))]
-public class ParticleSystemOnDestroy : MonoBehaviour
+﻿namespace CustomUnityLibrary
 {
-    [Tooltip("The particle system which will be trigged when game object is destroyed")]
-    [SerializeField]
-    private ParticleSystem ParticleSystem;
+    using UnityEngine;
 
-    private bool applicationClosing;
-
-    void OnDestroy()
+    /// <summary>
+    /// Plays the provided Particle System when the GameObject is destroyed
+    /// </summary>
+    [RequireComponent(typeof(Renderer))]
+    public class ParticleSystemOnDestroy : MonoBehaviour
     {
-        if (applicationClosing)
+        [Tooltip("The particle system which will be trigged when game object is destroyed")]
+        [SerializeField]
+        private ParticleSystem ParticleSystem;
+
+        private bool applicationClosing;
+
+        void OnDestroy()
         {
-            return;
+            if (applicationClosing)
+            {
+                return;
+            }
+
+            if (GetComponent<Renderer>().isVisible)
+            {
+                var particleSystem = Instantiate(ParticleSystem, transform.position, Quaternion.identity) as ParticleSystem;
+                GameObjectUtility.ChildCloneToContainer(particleSystem.gameObject);
+                Destroy(particleSystem.gameObject, particleSystem.duration);
+            }
         }
 
-        if (GetComponent<Renderer>().isVisible)
+        void OnApplicationQuit()
         {
-            var particleSystem = Instantiate(ParticleSystem, transform.position, Quaternion.identity) as ParticleSystem;
-            GameObjectUtility.ChildCloneToContainer(particleSystem.gameObject);
-            Destroy(particleSystem.gameObject, particleSystem.duration);
+            applicationClosing = true;
         }
-    }
-
-    void OnApplicationQuit()
-    {
-        applicationClosing = true;
     }
 }

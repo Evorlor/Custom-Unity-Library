@@ -1,28 +1,32 @@
-﻿using System.Text.RegularExpressions;
-/// <summary>
-/// These are extensions for Strings
-/// </summary>
-public static class StringExtensions
+﻿namespace CustomUnityLibrary
 {
-    private const string SpacingRegex = @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))";
-    private const string SpacingSpace = " $0";
+    using System.Text.RegularExpressions;
 
     /// <summary>
-    /// Removes the substring at the end of a string
+    /// These are extensions for Strings
     /// </summary>
-    public static string TrimEnd(this string source, string value)
+    public static class StringExtensions
     {
-        if (!source.EndsWith(value))
-            return source;
+        private const string SpacingRegex = @"((?<=\p{Ll})\p{Lu})|((?!\A)\p{Lu}(?>\p{Ll}))";
+        private const string SpacingSpace = " $0";
 
-        return source.Remove(source.LastIndexOf(value));
-    }
+        /// <summary>
+        /// Removes the substring at the end of a string
+        /// </summary>
+        public static string TrimEnd(this string source, string value)
+        {
+            if (!source.EndsWith(value))
+                return source;
 
-    /// <summary>
-    /// Adds the spacing to a string such that each word or acronym will be separated by spaces.
-    /// </summary>
-    public static string AddSpacing(this string source)
-    {
-        return Regex.Replace(source, SpacingRegex, SpacingSpace);
+            return source.Remove(source.LastIndexOf(value));
+        }
+
+        /// <summary>
+        /// Adds the spacing to a string such that each word or acronym will be separated by spaces.
+        /// </summary>
+        public static string AddSpacing(this string source)
+        {
+            return Regex.Replace(source, SpacingRegex, SpacingSpace);
+        }
     }
 }
