@@ -57,7 +57,7 @@
         public static void ChildCloneToContainer(GameObject clone, Transform parent = null)
         {
             var parentName = parent ? parent.name : null;
-            var container = GetOrAddGameObject(parent.name, clone.name.TrimEnd(CloneSuffix));
+            var container = GetOrAddGameObject(parentName, clone.name.TrimEnd(CloneSuffix));
             clone.transform.SetParent(container.transform);
             container.GetOrAddComponent<DestroyedWhenEmpty>();
             container.hideFlags = HideFlags.HideInInspector;
