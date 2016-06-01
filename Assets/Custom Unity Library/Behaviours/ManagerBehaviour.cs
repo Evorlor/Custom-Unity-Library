@@ -31,61 +31,24 @@
                         var manager = GameObjectUtility.GetOrAddGameObject(masterManager.name, managerName);
                         instance = manager.AddComponent<TManager>();
                     }
+                    SetUpDestruction(instance.transform);
                 }
                 return instance;
             }
         }
 
-        /// <summary>
-        /// Confirms or corrects singleton status.
-        /// </summary>
-        protected virtual void Awake()
-        {
-            if (!instance)
-            {
-                instance = this as TManager;
-            }
-            SetUpDestruction(transform);
-            DestroyDuplicateManagers();
-        }
-
-        /// <summary>
-        /// Updates singleton constraints when level is loaded
-        /// </summary>
-        protected virtual void OnLevelWasLoaded()
-        {
-            SetUpDestruction(transform);
-        }
-
-        private void SetUpDestruction(Transform leaf)
+        private static void SetUpDestruction(Transform leaf)
         {
             do
             {
-                var destroyedWhenEmpty = leaf.gameObject.GetComponent<DestroyedWhenEmpty>();
-                if (!destroyedWhenEmpty)
-                {
-                    destroyedWhenEmpty = leaf.gameObject.AddComponent<DestroyedWhenEmpty>();
-                    destroyedWhenEmpty.hideFlags = HideFlags.HideInInspector;
-                }
+                var destroyedWhenEmpty = leaf.gameObject.GetOrAddComponent<DestroyedWhenEmpty>();
+                destroyedWhenEmpty.hideFlags = HideFlags.HideInInspector;
                 if (!leaf.parent)
                 {
-                    DontDestroyOnLoad(leaf);
+                    DontDestroyOnLoad(leaf.gameObject);
                 }
                 leaf = leaf.parent;
             } while (leaf);
-        }
-
-        private void DestroyDuplicateManagers()
-        {
-            var managers = FindObjectsOfType<TManager>();
-            foreach (var manager in managers)
-            {
-                if (Instance != manager)
-                {
-                    SetUpDestruction(manager.transform);
-                    Destroy(manager);
-                }
-            }
         }
     }
 }
