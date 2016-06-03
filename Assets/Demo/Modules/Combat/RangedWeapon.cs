@@ -72,6 +72,7 @@ public class RangedWeapon : MonoBehaviour
     /// <summary>
     /// Fires the equipped Projectile towards the Ranged Weapon's Right Vector.
     /// </summary>
+    /// <returns>Whether or not the Projectile was successfully fired</returns>
     public bool Fire()
     {
         return Fire(transform.right);
@@ -80,6 +81,9 @@ public class RangedWeapon : MonoBehaviour
     /// <summary>
     /// Fires the equipped Projectile at the target.
     /// </summary>
+    /// <param name="target">Target to fire the projectile at</param>
+    /// <param name="ignoreGravity">Whether or not to ignore gravity while firing the projectile</param>
+    /// <returns>Whether or not the projectile was successfully fired</returns>
     public bool Fire(Transform target, bool ignoreGravity = false)
     {
         if (ignoreGravity)
@@ -108,6 +112,9 @@ public class RangedWeapon : MonoBehaviour
     /// <summary>
     /// Fires the equipped Projectile in the direction
     /// </summary>
+    /// <param name="direction">The direction to fire the Projectile in</param>
+    /// <param name="ignoreGravity">Whether or not to ignore gravity when firing the Projectile</param>
+    /// <returns></returns>
     public bool Fire(Vector2 direction, bool ignoreGravity = false)
     {
         if (!IsValidShot(direction))
@@ -135,6 +142,10 @@ public class RangedWeapon : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Makes the Projectiles not check for collision with the Ranged Weapon
+    /// </summary>
+    /// <param name="projectileInstance">Projectile whose collision will be ignored</param>
     private void DisableProjectileColliders(Projectile projectileInstance)
     {
         var rangedWeaponColliders = GetComponents<Collider2D>();
@@ -151,6 +162,9 @@ public class RangedWeapon : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Moves the Projectile to the barrel of the Ranged Weapon
+    /// </summary>
     private void UpdateProjectileSpawnPosition()
     {
         if (transform.right == oldRightVector)
@@ -168,6 +182,10 @@ public class RangedWeapon : MonoBehaviour
         oldRightVector = transform.right;
     }
 
+    /// <summary>
+    /// Checks to make sure the shot is valid
+    /// </summary>
+    /// <returns>Whether or not the shot is valid</returns>
     private bool IsValidShot()
     {
         if (fireCooldown > 0)
@@ -182,6 +200,11 @@ public class RangedWeapon : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Checks to make sure the shot power required is within the capabilities of this Ranged Weapon
+    /// </summary>
+    /// <param name="direction">The direction whose magnitude will be used</param>
+    /// <returns>Whether or not the shot is within range</returns>
     private bool IsValidShot(Vector2 direction)
     {
         if (!unlimitedRange && direction.magnitude > range)
@@ -191,6 +214,9 @@ public class RangedWeapon : MonoBehaviour
         return IsValidShot();
     }
 
+    /// <summary>
+    /// Updates the cooldown rate of the RangedWeapon
+    /// </summary>
     private void UpdateFireCooldown()
     {
         fireCooldown -= Time.deltaTime;

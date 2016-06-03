@@ -10,6 +10,8 @@
         /// <summary>
         /// Returns the viewport of the camera as a Rect.  This method is intended for Orthographic cameras.
         /// </summary>
+        /// <param name="camera">The camera to get the viewport of</param>
+        /// <returns>The viewport of the camera</returns>
         public static Rect GetViewport(this Camera camera)
         {
             var bottomLeftPoint = camera.ScreenToWorldPoint(Vector3.zero);

@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterPlatformer))]
 public class PlayerPlatformerController : MonoBehaviour
 {
-    private const float dropDownForceRequired = 0.5f;
+    private const float DropDownForceRequired = 0.5f;
 
     private CharacterPlatformer characterPlatformer;
 
@@ -25,7 +25,7 @@ public class PlayerPlatformerController : MonoBehaviour
         characterPlatformer.Move(Input.GetAxis(InputNames.Horizontal));
         if (Input.GetButton(InputNames.Jump))
         {
-            if (Input.GetAxis(InputNames.Vertical) <= -dropDownForceRequired)
+            if (Input.GetAxis(InputNames.Vertical) <= -DropDownForceRequired)
             {
                 characterPlatformer.DropDownPlatform();
             }

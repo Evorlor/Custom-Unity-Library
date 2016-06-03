@@ -10,6 +10,9 @@
         /// <summary>
         /// If GameObject has specified Component, it returns it.  If GameObject does not have specified Component, it adds it and then returns it.
         /// </summary>
+        /// <typeparam name="TComponent">Type of component to add or retrieve</typeparam>
+        /// <param name="gameObject">GameObject to add the component to, or retrieve it from</param>
+        /// <returns>Component which was created or retrieved</returns>
         public static TComponent GetOrAddComponent<TComponent>(this GameObject gameObject) where TComponent : Component
         {
             TComponent component = gameObject.GetComponent<TComponent>();
@@ -24,6 +27,9 @@
         /// Finds the nearest component of the specified type, or null if there is none.
         /// This is an expensive operation, and it should not be performed every frame.
         /// </summary>
+        /// <typeparam name="TComponent">Type of component to find the nearest of</typeparam>
+        /// <param name="gameObject">GameObject to use as the origin when searching for the nearest</param>
+        /// <returns>The component closest to the origin GameObject</returns>
         public static TComponent FindNearest<TComponent>(this GameObject gameObject) where TComponent : Component
         {
             TComponent nearestComponent = null;

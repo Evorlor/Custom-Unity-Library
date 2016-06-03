@@ -21,6 +21,7 @@ public class Projectile : MonoBehaviour
     /// <summary>
     /// Gets the Rigidbody2D for the Projectile
     /// </summary>
+    /// <returns>The Projectile's Rigidbody2D</returns>
     public Rigidbody2D GetRigidBody2D()
     {
         return body2D;

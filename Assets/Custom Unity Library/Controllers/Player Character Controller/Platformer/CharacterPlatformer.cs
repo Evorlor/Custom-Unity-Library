@@ -42,9 +42,25 @@
         [Range(0, 1)]
         private float jumpIncreaseRate = 0.5f;
 
+
+        /// <summary>
+        /// Called when colliding with an object
+        /// </summary>
         public event Action<RaycastHit2D> onControllerCollidedEvent;
+
+        /// <summary>
+        /// Called when entering a trigger
+        /// </summary>
         public event Action<Collider2D> onTriggerEnterEvent;
+
+        /// <summary>
+        /// Called while inside a trigger
+        /// </summary>
         public event Action<Collider2D> onTriggerStayEvent;
+
+        /// <summary>
+        /// Called when exiting a trigger
+        /// </summary>
         public event Action<Collider2D> onTriggerExitEvent;
 
         private float oldAppliedJumpPower;
@@ -65,6 +81,21 @@
             characterController2D.onTriggerEnterEvent += onCharacterTriggerEnterEvent;
             characterController2D.onTriggerStayEvent += onCharacterTriggerStayEvent;
             characterController2D.onTriggerExitEvent += onCharacterTriggerExitEvent;
+        }
+
+        void Update()
+        {
+            if (characterController2D.isGrounded)
+            {
+                velocity.y = 0;
+            }
+            if (jumping)
+            {
+                ApplyJump();
+            }
+            ApplyHorizontalMovement();
+            ApplyGravity();
+            ApplyVelocity();
         }
 
         void onCharacterControllerCollider(RaycastHit2D hit)
@@ -101,24 +132,10 @@
             }
         }
 
-        void Update()
-        {
-            if (characterController2D.isGrounded)
-            {
-                velocity.y = 0;
-            }
-            if (jumping)
-            {
-                ApplyJump();
-            }
-            ApplyHorizontalMovement();
-            ApplyGravity();
-            ApplyVelocity();
-        }
-
         /// <summary>
         /// Moves the character left or right
         /// </summary>
+        /// <param name="horizontalMovement">How much to move the character by</param>
         public void Move(float horizontalMovement)
         {
             horizontalSpeed = horizontalMovement;
@@ -161,14 +178,16 @@
         /// <summary>
         /// Applies a force to the character's velocity
         /// </summary>
+        /// <param name="force">Force to apply</param>
         public void AddForce(Vector2 force)
         {
             velocity += force;
         }
 
         /// <summary>
-        /// Gets the velocity
+        /// Gets the current velocity of the character
         /// </summary>
+        /// <returns>The velocity</returns>
         public Vector2 GetVelocity()
         {
             return characterController2D.velocity;
@@ -177,11 +196,15 @@
         /// <summary>
         /// Checks whether or not the Character Controller is grounded
         /// </summary>
+        /// <returns>Whether or not the character is grounded</returns>
         public bool IsGrounded()
         {
             return characterController2D.isGrounded;
         }
 
+        /// <summary>
+        /// Add to the velocity to make the character jump
+        /// </summary>
         private void ApplyJump()
         {
             velocity.y = Mathf.Sqrt(appliedJumpPower * -Physics2D.gravity.y);
@@ -195,17 +218,26 @@
             }
         }
 
+        /// <summary>
+        /// Adjust the velocity such that the character will move horizontally
+        /// </summary>
         private void ApplyHorizontalMovement()
         {
             var smoothedMovementFactor = characterController2D.isGrounded ? groundDamping : inAirDamping;
             velocity.x = Mathf.Lerp(velocity.x, horizontalSpeed * runSpeed, Time.deltaTime * smoothedMovementFactor);
         }
 
+        /// <summary>
+        /// Apply gravity to the character's velocity
+        /// </summary>
         private void ApplyGravity()
         {
             velocity += Physics2D.gravity * body2D.gravityScale * Time.deltaTime;
         }
 
+        /// <summary>
+        /// Move the character based on their velocity
+        /// </summary>
         private void ApplyVelocity()
         {
             characterController2D.move(velocity * Time.deltaTime);

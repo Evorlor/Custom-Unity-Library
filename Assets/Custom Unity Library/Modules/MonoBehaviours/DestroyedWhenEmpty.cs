@@ -16,6 +16,10 @@
             }
         }
 
+        /// <summary>
+        /// Check whether or not the GameObject has no children nor components
+        /// </summary>
+        /// <returns>Whether or not the GameObject has no children nor components</returns>
         private bool IsEmpty()
         {
             bool hasExtraComponents = transform.GetComponents<MonoBehaviour>().Length > 1;

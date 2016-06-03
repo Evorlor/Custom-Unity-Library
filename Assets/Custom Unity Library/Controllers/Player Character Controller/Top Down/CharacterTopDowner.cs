@@ -20,9 +20,24 @@
         [Range(0, 100)]
         private float damping = 20.0f;
 
+        /// <summary>
+        /// Called when colliding with an object
+        /// </summary>
         public event Action<RaycastHit2D> onControllerCollidedEvent;
+
+        /// <summary>
+        /// Called when entering a trigger
+        /// </summary>
         public event Action<Collider2D> onTriggerEnterEvent;
+
+        /// <summary>
+        /// Called while inside a trigger
+        /// </summary>
         public event Action<Collider2D> onTriggerStayEvent;
+
+        /// <summary>
+        /// Called when exiting a trigger
+        /// </summary>
         public event Action<Collider2D> onTriggerExitEvent;
 
         private float horizontalSpeed;
@@ -40,6 +55,14 @@
             characterController2D.onTriggerEnterEvent += onCharacterTriggerEnterEvent;
             characterController2D.onTriggerStayEvent += onCharacterTriggerStayEvent;
             characterController2D.onTriggerExitEvent += onCharacterTriggerExitEvent;
+        }
+
+        void Update()
+        {
+            ApplyMovement();
+            ApplyRotation();
+            ApplyGravity();
+            ApplyVelocity();
         }
 
         void onCharacterControllerCollider(RaycastHit2D hit)
@@ -76,17 +99,10 @@
             }
         }
 
-        void Update()
-        {
-            ApplyMovement();
-            ApplyRotation();
-            ApplyGravity();
-            ApplyVelocity();
-        }
-
         /// <summary>
         /// Moves the player
         /// </summary>
+        /// <param name="movement">Movement to apply to the player</param>
         public void Move(Vector2 movement)
         {
             horizontalSpeed = movement.x;
@@ -96,6 +112,8 @@
         /// <summary>
         /// Moves the player
         /// </summary>
+        /// <param name="horizontalMovement">Horizontal movement to apply to the player</param>
+        /// <param name="verticalMovement">Vertical movement to apply to the player</param>
         public void Move(float horizontalMovement, float verticalMovement)
         {
             horizontalSpeed = horizontalMovement;
@@ -105,25 +123,33 @@
         /// <summary>
         /// Applies a force to the character's velocity
         /// </summary>
+        /// <param name="force">Force to apply to the character's velocity</param>
         public void AddForce(Vector2 force)
         {
             velocity += force;
         }
 
         /// <summary>
-        /// Gets the velocity
+        /// Gets the character's current velocity
         /// </summary>
+        /// <returns>The character's velocity</returns>
         public Vector2 GetVelocity()
         {
             return characterController2D.velocity;
         }
 
+        /// <summary>
+        /// Set the velocity based on the character's movement
+        /// </summary>
         private void ApplyMovement()
         {
             velocity.x = Mathf.Lerp(velocity.x, horizontalSpeed * moveSpeed, Time.deltaTime * damping);
             velocity.y = Mathf.Lerp(velocity.y, verticalSpeed * moveSpeed, Time.deltaTime * damping);
         }
 
+        /// <summary>
+        /// Rotate the character in the direction they are facing
+        /// </summary>
         private void ApplyRotation()
         {
             if (Mathf.Abs(velocity.x) > 0 || Mathf.Abs(velocity.y) > 0)
@@ -133,11 +159,18 @@
             }
         }
 
+        /// <summary>
+        /// Apply gravity, if there is any to apply.
+        /// Chances are, no gravity will be applied; but, this can be used to manipulate the character's movement.
+        /// </summary>
         private void ApplyGravity()
         {
             velocity += Physics2D.gravity * body2D.gravityScale * Time.deltaTime;
         }
 
+        /// <summary>
+        /// Move the character based on its velocity
+        /// </summary>
         private void ApplyVelocity()
         {
             characterController2D.move(velocity * Time.deltaTime);

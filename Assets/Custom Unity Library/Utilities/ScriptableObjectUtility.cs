@@ -13,8 +13,11 @@
         private const string AssetSuffix = ".asset";
 
         /// <summary>
-        //	Create, name, and place unique new ScriptableObject asset files, optionally passing in the path where the Scriptable Object is to be created.
+        /// Create, name, and place unique new ScriptableObject asset files, optionally passing in the path where the Scriptable Object is to be created.
         /// </summary>
+        /// <typeparam name="TAsset">The type of scriptable object to be created</typeparam>
+        /// <param name="path">The path to where the scriptable object should be created</param>
+        /// <returns>The scriptable object which was created</returns>
         public static TAsset CreateAsset<TAsset>(string path = null) where TAsset : ScriptableObject
         {
             TAsset asset = ScriptableObject.CreateInstance<TAsset>();

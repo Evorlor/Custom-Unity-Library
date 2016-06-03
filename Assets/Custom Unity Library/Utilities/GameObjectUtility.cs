@@ -14,6 +14,8 @@
         /// Returns a newly created GameObject at the bottom of a tree, or returns it if it already exists.
         /// Removes all null references and empty strings from the object names.
         /// </summary>
+        /// <param name="gameObjectNames">The GameObjects in the order for the tree where it will be added/retrieved</param>
+        /// <returns>The GameObject which was retrieved/created</returns>
         public static GameObject GetOrAddGameObject(params string[] gameObjectNames)
         {
             if (gameObjectNames == null)
@@ -52,8 +54,11 @@
         }
 
         /// <summary>
-        /// Creates a GameObject by the same name of the clone and sets the clone as a child to that GameObject.  The container GameObject will automatically be destroyed once it has no remaining clones.
+        /// Creates a GameObject by the same name of the clone and sets the clone as a child to that GameObject.
+        /// The container GameObject will automatically be destroyed once it has no remaining clones.
         /// </summary>
+        /// <param name="clone">The GameObject which was cloned</param>
+        /// <param name="parent">The parent to attach the clone to</param>
         public static void ChildCloneToContainer(GameObject clone, Transform parent = null)
         {
             var parentName = parent ? parent.name : null;
@@ -67,6 +72,9 @@
         /// Finds all GameObjects of the specified type, and returns them in order of ascending distance from the Vector3.
         /// This is an expensive operation, and should not be performed every frame.
         /// </summary>
+        /// <typeparam name="TGameObject">The GameObject type to search for</typeparam>
+        /// <param name="position">The position which is used to find the distance from the GameObject for ordering</param>
+        /// <returns>The list of GameObjects in order sorted by distance</returns>
         public static TGameObject[] FindObjectsOfTypeByDistance<TGameObject>(Vector3 position) where TGameObject : MonoBehaviour
         {
             var gameObjectTypes = Object.FindObjectsOfType<TGameObject>();

@@ -20,9 +20,24 @@
         [Range(0, 100)]
         private float damping = 20.0f;
 
+        /// <summary>
+        /// Called when colliding with an object
+        /// </summary>
         public event Action<RaycastHit2D> onControllerCollidedEvent;
+
+        /// <summary>
+        /// Called when entering a trigger
+        /// </summary>
         public event Action<Collider2D> onTriggerEnterEvent;
+
+        /// <summary>
+        /// Called while inside a trigger
+        /// </summary>
         public event Action<Collider2D> onTriggerStayEvent;
+
+        /// <summary>
+        /// Called when exiting a trigger
+        /// </summary>
         public event Action<Collider2D> onTriggerExitEvent;
 
         private float horizontalSpeed;
@@ -86,6 +101,8 @@
         /// <summary>
         /// Moves the player
         /// </summary>
+        /// <param name="horizontalMovement">The horizontal movement to apply</param>
+        /// <param name="verticalMovement">The vertical movement to apply</param>
         public void Move(float horizontalMovement, float verticalMovement)
         {
             Move(new Vector2(horizontalMovement, verticalMovement));
@@ -94,6 +111,7 @@
         /// <summary>
         /// Moves the player
         /// </summary>
+        /// <param name="movement">The movement to apply</param>
         public void Move(Vector2 movement)
         {
             horizontalSpeed = movement.x;
@@ -107,30 +125,41 @@
         /// <summary>
         /// Applies a force to the character's velocity
         /// </summary>
+        /// <param name="force">The force to apply</param>
         public void AddForce(Vector2 force)
         {
             velocity += force;
         }
 
         /// <summary>
-        /// Gets the velocity
+        /// Gets the current velocity for the character
         /// </summary>
+        /// <returns>The velocity</returns>
         public Vector2 GetVelocity()
         {
             return characterController2D.velocity;
         }
 
+        /// <summary>
+        /// Set the character's velocity based on their movement
+        /// </summary>
         private void ApplyMovement()
         {
             velocity.x = Mathf.Lerp(velocity.x, horizontalSpeed * moveSpeed, Time.deltaTime * damping);
             velocity.y = Mathf.Lerp(velocity.y, verticalSpeed * moveSpeed, Time.deltaTime * damping);
         }
 
+        /// <summary>
+        /// Add gravity to the character's velocity
+        /// </summary>
         private void ApplyGravity()
         {
             velocity += Physics2D.gravity * body2D.gravityScale * Time.deltaTime;
         }
 
+        /// <summary>
+        /// Set the character's velocity based on their movement
+        /// </summary>
         private void ApplyVelocity()
         {
             characterController2D.move(velocity * Time.deltaTime);

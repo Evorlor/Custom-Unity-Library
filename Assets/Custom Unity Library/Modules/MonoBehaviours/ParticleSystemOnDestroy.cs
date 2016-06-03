@@ -20,7 +20,6 @@
             {
                 return;
             }
-
             if (GetComponent<Renderer>().isVisible)
             {
                 var particleSystem = Instantiate(ParticleSystem, transform.position, Quaternion.identity) as ParticleSystem;

@@ -19,6 +19,11 @@
         /// This only takes the Y gravity into account, and X gravity will not affect the trajectory.
         /// If there is no gravity and no ConstantForce2D is attached, a ConstantForce2D with a gravity of (0.0f, -9.8f) will be attached.
         /// </summary>
+        /// <param name="rigidbody2D">The rigidbody2D to apply the force to</param>
+        /// <param name="target">The destination for the rigidbody2D</param>
+        /// <param name="force">The force to apply to the rigidbody2D</param>
+        /// <param name="arch">The arch to apply to the rigidbody's trajectory</param>
+        /// <returns></returns>
         public static bool SetTrajectory(this Rigidbody2D rigidbody2D, Vector2 target, float force, float arch = 0.5f)
         {
             arch = Mathf.Clamp(arch, 0, 1);
@@ -56,6 +61,11 @@
         /// Checks if the Rigidbody2D is within range such that if rigidbody2D.SetTrajectory(Vector2, float) is called on it, it will be able to reach its target.
         /// If there is no gravity and no ConstantForce2D is attached, a default gravity of -9.8f will be assumed.
         /// </summary>
+        /// <param name="rigidbody2D">The rigidbody2D whose range will be checked</param>
+        /// <param name="target">The target used while checking the range</param>
+        /// <param name="force">The force that would be applied for the range check</param>
+        /// <param name="arch">The arch that would be used for the range check</param>
+        /// <returns>Whether or not the Rigidbody2D would be within range with the supplied parameters</returns>
         public static bool IsWithinRange(this Rigidbody2D rigidbody2D, Vector2 target, float force, float arch = 0.5f)
         {
             arch = Mathf.Clamp(arch, 0, 1);

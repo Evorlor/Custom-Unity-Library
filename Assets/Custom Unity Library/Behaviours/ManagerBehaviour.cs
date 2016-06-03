@@ -16,7 +16,6 @@
         /// <summary>
         /// Gets the singleton instance of the Manager
         /// </summary>
-        /// <value>The singleton instance of the Manager Type</value>
         public static TManager Instance
         {
             get
@@ -37,6 +36,10 @@
             }
         }
 
+        /// <summary>
+        /// Set up the hierarchy leading to the Manager so that it will be destroyed if it is no longer relevant to the scene.
+        /// </summary>
+        /// <param name="leaf">The transform which belongs to the manager</param>
         private static void SetUpDestruction(Transform leaf)
         {
             do
