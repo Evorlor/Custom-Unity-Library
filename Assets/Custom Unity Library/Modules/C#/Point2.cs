@@ -1,7 +1,7 @@
-﻿namespace CustomUnityLibrary
-{
-    using UnityEngine;
+using UnityEngine;
 
+namespace CustomUnityLibrary
+{
     /// <summary>
     /// Contains x and y coordinates.
     /// Similar to Vector2, but stores ints instead of floats.
@@ -56,7 +56,7 @@
         {
             get
             {
-                return Mathf.Sqrt(x * x + y * y);
+                return Mathf.Sqrt(sqrMagnitude);
             }
         }
 
@@ -78,7 +78,7 @@
         {
             get
             {
-                return x * x * y * y;
+                return x * x + y * y;
             }
         }
 
