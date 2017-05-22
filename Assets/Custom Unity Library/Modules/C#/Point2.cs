@@ -56,7 +56,7 @@
         {
             get
             {
-                return Mathf.Sqrt(x + x * y * y);
+                return Mathf.Sqrt(x * x + y * y);
             }
         }
 
